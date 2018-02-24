@@ -1,0 +1,31 @@
+.register {
+  width: 25rem;
+  padding: 3rem 1rem;
+
+  &-social {
+    margin-right: 1rem;
+    margin-left: 1rem;
+
+    &-facebook {
+      display: block;
+      background-color: $facebook;
+      color: $white;
+      padding: 0.75rem 0.5rem;
+      text: {
+        align: center;
+        decoration: none;
+      }
+      border-radius: 4px;
+      box-shadow: 0 2px 2px 0 #615D6C;
+      transition: background-color .275s;
+      font: {
+        size: 1.125rem;
+        weight: 600;
+      }
+
+      &:hover {
+        background-color: lighten($facebook, 5%);
+      }
+    }
+  }
+}
