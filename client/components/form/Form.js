@@ -99,6 +99,16 @@ export class Form extends React.Component {
     return this.state.fillables.every((field) => this.state[field].isValid && this.state[field].val);
   }
 
+  onSubmit = event => {
+    event.preventDefault();
+    const isFormValid = this.validateForm();
+    if (isFormValid) {
+      this.submitFormData();
+    } else {
+      this.displayErrorsForInvalidFields();
+    }
+  }
+
   displayErrorsForInvalidFields() {
     let invalidFormFields = {};
     this.state.fillables.forEach(fieldName => {
@@ -118,15 +128,28 @@ export class Form extends React.Component {
     this.setState(invalidFormFields);
   }
 
-  onSubmit = event => {
-    event.preventDefault();
-    console.log('submitted');
-    console.log(this.state);
-    const isFormValid = this.validateForm();
-    if (!isFormValid) {
-      this.displayErrorsForInvalidFields();
-    }
-    console.log(this.state.password.isValid);
+  submitFormData(isFormValid) {
+    const formData = this.state.fillables.map(key => {
+      return {
+        [key]: this.state[key]['val']
+      }
+    });
+    
+    // Submit data to server may be through axios
+    // axios.post('/api/users', formData)
+
+    this.clearFormData();
+  }
+
+  clearFormData() {
+    this.setState({
+      firstName: { ...this.state.firstName, val: '' },
+      lastName: { ...this.state.lastName, val: '' },
+      username: { ...this.state.username, val: '' },
+      email: { ...this.state.email, val: '' },
+      password: { ...this.state.password, val: '' },
+      terms: { ...this.state.terms, val: false }
+    })
   }
 
   render() {
@@ -234,6 +257,7 @@ export class Form extends React.Component {
                 type="checkbox"
                 name="terms"
                 onChange={this.onChange}
+                checked={this.state.terms.val}
                 className="agree-terms"
               />
               I agree that my data can be processed and used in accordance with the <a href="/info/show/privacy" target="_blank">privacy policy</a>.
