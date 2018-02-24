@@ -1,6 +1,9 @@
 .register {
-  width: 25rem;
+  width: 100%;
   padding: 3rem 1rem;
+  @media screen and (min-width: $screen-sm) {
+    width: 25rem;
+  }
 
   &-social {
     margin-right: 1rem;
