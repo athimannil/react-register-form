@@ -1,6 +1,21 @@
 import React from 'react';
 
 export class Form extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      passwordType: 'password',
+      terms: {
+        val: false
+      }
+    }
+  }
+  showHide = () => {
+    this.setState({
+      passwordType: this.state.passwordType === 'password' ? 'text' : 'password'
+    })
+  }
+
   render() {
     return (
       <form>
@@ -71,11 +86,16 @@ export class Form extends React.Component {
               <i className="icon-lock"></i>
             </span>
             <input
-              type="password"
+              type={this.state.passwordType}
               name="password"
               className="input-field"
               placeholder="Password"
             />
+            <span className="input-addon">
+              <label className="addon-label">
+                <input className="addon-checkbox" type="checkbox" onClick={this.showHide} />Show
+              </label>
+            </span>
           </div>
         </div>
 
@@ -91,7 +111,7 @@ export class Form extends React.Component {
             </label>
           </div>
         </div>
-        
+
         <button
           type="submit"
           className="cta-button"
