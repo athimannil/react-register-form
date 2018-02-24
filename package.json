@@ -1,0 +1,28 @@
+{
+  "name": "react-register-form",
+  "version": "1.0.0",
+  "description": "React register form with client side validation",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon --watch server --exec babel-node -- server/index.js",
+    "server": "babel-node server/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/athimannil/react-register-form.git"
+  },
+  "author": "Muhammed Athimannil <hello@athimannil.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/athimannil/react-register-form/issues"
+  },
+  "homepage": "https://github.com/athimannil/react-register-form#readme",
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.6.1"
+  },
+  "dependencies": {
+    "express": "^4.16.2"
+  }
+}
