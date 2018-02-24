@@ -26,6 +26,10 @@
       &:hover {
         background-color: lighten($facebook, 5%);
       }
+
+      i {
+        float: left;
+      }
     }
   }
 }
@@ -34,6 +38,11 @@ form {
   padding: 1rem 1rem 2rem;
   background-color: $white;
   border-radius: 4px;
+}
+
+.form-group {
+	margin-top: 0.25rem;
+	margin-bottom: 1rem;
 }
 
 .input {
