@@ -147,6 +147,7 @@ export class Form extends React.Component {
               placeholder="First name"
             />
           </div>
+          { !this.state.firstName.isValid && <span className="validation-msg">{this.state.firstName.error}</span> }
         </div>
 
         <div className="form-group">
@@ -164,6 +165,7 @@ export class Form extends React.Component {
               placeholder="Last name"
             />
           </div>
+          { !this.state.lastName.isValid && <span className="validation-msg">{this.state.lastName.error}</span> }
         </div>
 
         <div className="form-group">
@@ -181,6 +183,7 @@ export class Form extends React.Component {
               placeholder="Username"
             />
           </div>
+          { !this.state.username.isValid && <span className="validation-msg">{this.state.username.error}</span> }
         </div>
 
         <div className="form-group">
@@ -198,6 +201,7 @@ export class Form extends React.Component {
               placeholder="E-mail"
             />
           </div>
+          { !this.state.email.isValid && <span className="validation-msg">{this.state.email.error}</span> }
         </div>
 
         <div className="form-group">
@@ -220,6 +224,7 @@ export class Form extends React.Component {
               </label>
             </span>
           </div>
+          { !this.state.password.isValid && <span className="validation-msg">{this.state.password.error}</span> }
         </div>
 
         <div className="form-group">
@@ -234,6 +239,7 @@ export class Form extends React.Component {
               I agree that my data can be processed and used in accordance with the <a href="/info/show/privacy" target="_blank">privacy policy</a>.
             </label>
           </div>
+          { !this.state.terms.isValid && <span className="validation-msg">{this.state.terms.error}</span> }
         </div>
 
         <button

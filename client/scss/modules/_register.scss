@@ -125,6 +125,27 @@ form {
   }
 }
 
+.validation-msg {
+  display: inline-block;
+  background-color: $validation-bgc;
+  color: $validation-color;
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  border-radius: 0.125rem;
+  margin-top: 0.5em;
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    left: 1rem;
+    border-style: solid;
+    top: -0.5rem;
+    border-width: 0 0.5rem 0.5rem;
+    border-color: $validation-bgc transparent;
+  }
+}
+
 .devider {
   margin: 1.75rem 0;
 }
