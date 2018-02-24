@@ -79,6 +79,24 @@ export class Form extends React.Component {
           </div>
         </div>
 
+        <div className="form-group">
+          <div className="input-group terms-and-conditions">
+            <label>
+              <input
+                type="checkbox"
+                name="terms"
+                className="agree-terms"
+              />
+              I agree that my data can be processed and used in accordance with the <a href="/info/show/privacy" target="_blank">privacy policy</a>.
+            </label>
+          </div>
+        </div>
+        
+        <button
+          type="submit"
+          className="cta-button"
+          onClick={this.onSubmit} // if you declare method handlers as arrow functions taking event arg, then you can omit those things here
+        >Jetzt registrieren</button>
       </form>
     );
   }

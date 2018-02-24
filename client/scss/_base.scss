@@ -18,3 +18,8 @@ body {
 label {
   font-size: 0.75rem;
 }
+
+a {
+  color: $link-color;
+  text-decoration: none;
+}
