@@ -5,15 +5,106 @@ export class Form extends React.Component {
     super(props);
     this.state = {
       passwordType: 'password',
+      fillables: ['firstName', 'lastName', 'email', 'username', 'password', 'terms'], // this is done through manual listing in array so that you have control which fields should be validated for before submit
+      firstName: {
+        val: '',
+        isValid: true,
+        error: 'Please enter your first name'
+      },
+      lastName: {
+        val: '',
+        isValid: true,
+        error: 'Please enter your last name'
+      },
+      username: {
+        val: '',
+        isValid: true,
+        error: 'Please enter username'
+      },
+      email: {
+        val: '',
+        isValid: true,
+        error: 'Please enter valid email address'
+      },
+      password: {
+        val: '',
+        isValid: true,
+        error: 'Please enter password'
+      },
       terms: {
-        val: false
+        val: false,
+        isValid: true,
+        error: 'Please agree terms and conditions'
       }
-    }
+    };
   }
+
   showHide = () => {
     this.setState({
       passwordType: this.state.passwordType === 'password' ? 'text' : 'password'
     })
+  }
+
+  validateForStringChars(str) {
+    const re = /\b[^\d\W]+\b/g;
+    const preparedStr = str.replace(/ /g, '');
+    return re.test(preparedStr);
+  }
+
+  validateForEmail(str) {
+    const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(str);
+  }
+
+  validateFormField(field) {
+    let inputValidationResult = false;
+    switch (field.name) {
+      case 'firstName':
+        inputValidationResult = this.validateForStringChars(field.value) && field.value.length > 0;
+        break;
+      case 'lastName':
+        inputValidationResult = this.validateForStringChars(field.value) && field.value.length > 0;
+        break;
+      case 'username':
+        inputValidationResult = field.value.length > 0;
+        break;
+      case 'email':
+        inputValidationResult = this.validateForEmail(field.value) && field.value.length > 0;
+        break;
+      case 'password':
+        inputValidationResult = field.value.length > 0;
+        break;
+      case 'terms':
+        inputValidationResult = field.checked;
+        break;
+      default:
+        inputValidationResult = false;
+    }
+    return inputValidationResult;
+  }
+
+  onChange = (event) => {
+    const input = event.target;
+    const inputValue = input.type === "checkbox" ? input.checked : input.value;
+    this.setState({
+      [input.name]: {
+        ...this.state[input.name],
+        val: inputValue,
+        isValid: this.validateFormField(input)
+      }
+    });
+  }
+
+  validateForm() {
+    return this.state.fillables.every((field) => this.state[field].isValid && this.state[field].val);
+  }
+
+  onSubmit = event => {
+    event.preventDefault();
+    console.log('submitted');
+    console.log(this.state);
+    const isFormValid = this.validateForm();
+    console.log(isFormValid);
   }
 
   render() {
@@ -28,6 +119,8 @@ export class Form extends React.Component {
             <input
               type="text"
               name="firstName"
+              value={this.state.firstName.val}
+              onChange={this.onChange}
               className="input-field"
               placeholder="First name"
             />
@@ -43,6 +136,8 @@ export class Form extends React.Component {
             <input
               type="text"
               name="lastName"
+              value={this.state.lastName.val}
+              onChange={this.onChange}
               className="input-field"
               placeholder="Last name"
             />
@@ -57,7 +152,9 @@ export class Form extends React.Component {
             </span>
             <input
               type="text"
-              name="userName"
+              name="username"
+              value={this.state.username.val}
+              onChange={this.onChange}
               className="input-field"
               placeholder="Username"
             />
@@ -73,6 +170,8 @@ export class Form extends React.Component {
             <input
               type="email"
               name="email"
+              value={this.state.email.val}
+              onChange={this.onChange}
               className="input-field"
               placeholder="E-mail"
             />
@@ -88,6 +187,8 @@ export class Form extends React.Component {
             <input
               type={this.state.passwordType}
               name="password"
+              value={this.state.password.val}
+              onChange={this.onChange}
               className="input-field"
               placeholder="Password"
             />
@@ -105,6 +206,7 @@ export class Form extends React.Component {
               <input
                 type="checkbox"
                 name="terms"
+                onChange={this.onChange}
                 className="agree-terms"
               />
               I agree that my data can be processed and used in accordance with the <a href="/info/show/privacy" target="_blank">privacy policy</a>.
@@ -115,7 +217,7 @@ export class Form extends React.Component {
         <button
           type="submit"
           className="cta-button"
-          onClick={this.onSubmit} // if you declare method handlers as arrow functions taking event arg, then you can omit those things here
+          onClick={this.onSubmit}
         >Jetzt registrieren</button>
       </form>
     );
