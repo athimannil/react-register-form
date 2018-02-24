@@ -2,6 +2,7 @@ import React from 'react';
 
 import { Social } from './../social/Social';
 import { Form } from './../form/Form';
+import { Currentuser } from './../currentuser/Currentuser';
 
 export class Register extends React.Component {
   render() {
@@ -9,6 +10,7 @@ export class Register extends React.Component {
       <section className="register">
         <Social />
         <Form />
+        <Currentuser />
       </section>
     );
   }

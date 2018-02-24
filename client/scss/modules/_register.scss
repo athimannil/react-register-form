@@ -28,6 +28,10 @@
   }
 }
 
+.devide-login-option {
+  text-transform: uppercase;
+}
+
 form {
   padding: 1rem 1rem 2rem;
   background-color: $white;
@@ -104,6 +108,16 @@ form {
   .agree-terms {
     margin-left: -1.25rem;
   }
+}
+
+.devider {
+  margin: 1.75rem 0;
+}
+
+.current-member {
+  margin-top: 0;
+  font-size: 0.8rem;
+  text-align: center;
 }
 
 %button {
