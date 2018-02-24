@@ -99,12 +99,34 @@ export class Form extends React.Component {
     return this.state.fillables.every((field) => this.state[field].isValid && this.state[field].val);
   }
 
+  displayErrorsForInvalidFields() {
+    let invalidFormFields = {};
+    this.state.fillables.forEach(fieldName => {
+      const field = {
+        name: fieldName,
+        value: this.state[fieldName].val,
+        checked: this.state[fieldName].val
+      };
+      const isFieldValid = this.validateFormField(field);
+      if (!isFieldValid) {
+        invalidFormFields[fieldName] = {
+          ...this.state[fieldName],
+          isValid: false
+        }
+      }
+    })
+    this.setState(invalidFormFields);
+  }
+
   onSubmit = event => {
     event.preventDefault();
     console.log('submitted');
     console.log(this.state);
     const isFormValid = this.validateForm();
-    console.log(isFormValid);
+    if (!isFormValid) {
+      this.displayErrorsForInvalidFields();
+    }
+    console.log(this.state.password.isValid);
   }
 
   render() {
@@ -112,7 +134,7 @@ export class Form extends React.Component {
       <form>
         <div className="form-group">
           <label>First Name</label>
-          <div className="input-group">
+          <div className={this.state.firstName.isValid ? "input-group" : "input-group has-error"}>
             <span className="input-addon">
               <i className="icon-user"></i>
             </span>
@@ -129,7 +151,7 @@ export class Form extends React.Component {
 
         <div className="form-group">
           <label>Last Name</label>
-          <div className="input-group">
+          <div className={this.state.lastName.isValid ? "input-group" : "input-group has-error"}>
             <span className="input-addon">
               <i className="icon-user"></i>
             </span>
@@ -146,7 +168,7 @@ export class Form extends React.Component {
 
         <div className="form-group">
           <label>Username</label>
-          <div className="input-group">
+          <div className={this.state.username.isValid ? "input-group" : "input-group has-error"}>
             <span className="input-addon">
               <i className="icon-user"></i>
             </span>
@@ -163,7 +185,7 @@ export class Form extends React.Component {
 
         <div className="form-group">
           <label>E-mail</label>
-          <div className="input-group">
+          <div className={this.state.email.isValid ? "input-group" : "input-group has-error"}>
             <span className="input-addon">
               <i className="icon-mail"></i>
             </span>
@@ -180,7 +202,7 @@ export class Form extends React.Component {
 
         <div className="form-group">
           <label>Password</label>
-          <div className="input-group">
+          <div className={this.state.password.isValid ? "input-group" : "input-group has-error"}>
             <span className="input-addon">
               <i className="icon-lock"></i>
             </span>
